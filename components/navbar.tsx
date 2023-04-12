@@ -5,15 +5,16 @@ const Navbar = () => {
   const router = useRouter();
 
   const listPage = () => {
-    router.push("/List");
+    router.push("/");
   };
   const mapPage = () => {
-    router.push("/Map");
+    router.push("/map");
   };
 
   return (
     <div className="w-[7rem] h-[100vh] bg-green-500 fixed flex flex-col">
-      <div className="w-full mt-56">
+      <img src="GreenLogo.png" alt="" className="w-1/2" />
+      <div className="w-full mt-36">
         <button
           className="w-full h-10 bg-green-800 text-white"
           onClick={listPage}
