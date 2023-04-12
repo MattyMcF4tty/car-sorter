@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GoogleMap, InfoWindow, LoadScript, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 interface CarMapProps {
     cars: {
@@ -10,7 +10,7 @@ interface CarMapProps {
 }
 
 const CarMap = ({ cars }: CarMapProps) => {
-    const [mapCenter, setMapCenter] = useState<{lat:number, lng:number}>({ lat: 0, lng: 0 });
+    const [mapCenter, setMapCenter] = useState<{lat:number, lng:number}>({ lat: 55.676098, lng: 12.568337 });
 
     const { isLoaded, loadError } = useJsApiLoader({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
@@ -20,12 +20,14 @@ const CarMap = ({ cars }: CarMapProps) => {
     const [selectedCar, setSelectedCar] = useState(null);
     const [infoWindowOpen, setInfoWindowOpen] = useState(false);
 
+    /* When clicking a car marker open a information window ontop */
     const onCarClick = (car: {numberPlate: number, location: {lat: number, lng: number}, powerPercent: number}) => {
         setSelectedCar(car);
         setInfoWindowOpen(true);
         setMapCenter(car.location); 
     };
 
+    /* Loading the map */
     if (loadError) {
         return (
           <div>
@@ -59,7 +61,8 @@ const CarMap = ({ cars }: CarMapProps) => {
                         <Marker 
                         position={car.location}
                         onClick={() => onCarClick(car)}
-                        />))
+                        />
+                    ))
                 }
                 {infoWindowOpen && selectedCar && (
                     <InfoWindow
