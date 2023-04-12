@@ -19,16 +19,18 @@ const MapPage = () => {
   return (
     <div className="w-[calc(100vw-8rem)] h-[100vh]">
       <div className="absolute z-20 top-[0.65rem] right-2">
-        <button onClick={() => setShowFilterSettings(!showFilterSettings)} 
-        className="font-semibold shadow-md bg-white p-2 rounded-sm hover:bg-slate-200">Filter</button>
-        {showFilterSettings &&
-          <div className="bg-white w-52 p-2">
-            <BatterySearch 
-            cars={cars}
-            setFilteredCars={setFilteredCars}
-            />
-          </div>
-        }
+        <div className="relative">
+          <button onClick={() => setShowFilterSettings(!showFilterSettings)} 
+          className="font-semibold shadow-md bg-white p-2 rounded-sm hover:bg-slate-200">Filter</button>
+          {showFilterSettings &&
+            <div className="bg-white w-52 p-2 absolute right-0 rounded-sm shadow-md">
+              <BatterySearch 
+              cars={cars}
+              setFilteredCars={setFilteredCars}
+              />
+            </div>
+          }
+        </div>
       </div>
       <CarMap cars={filteredCars}/>
     </div>
