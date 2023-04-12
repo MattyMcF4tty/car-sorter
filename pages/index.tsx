@@ -25,6 +25,7 @@ const IndexPage = () => {
       powerPercent: Math.floor(Math.random() * 100),
     };
     setCars((prevCars) => [...prevCars, newCar]);
+    setFilteredCars(cars)
     sessionStorage.setItem("cars", JSON.stringify(cars));
   };
 
@@ -38,7 +39,6 @@ const IndexPage = () => {
         <button className='bg-green-700 p-2' onClick={addCar}>New Car</button>
         <CarList cars={filteredCars}/>
       </div>
-      <CarList cars={cars} />
     </div>
   );
 };
