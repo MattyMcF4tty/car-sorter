@@ -1,4 +1,5 @@
-import { GoogleMap, LoadScript, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { useState } from "react";
+import { GoogleMap, InfoWindow, LoadScript, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 interface CarMapProps {
     cars: {
@@ -9,12 +10,21 @@ interface CarMapProps {
 }
 
 const CarMap = ({ cars }: CarMapProps) => {
-    const center = { lat: 0, lng: 0 };
+    const [mapCenter, setMapCenter] = useState<{lat:number, lng:number}>({ lat: 0, lng: 0 });
 
     const { isLoaded, loadError } = useJsApiLoader({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
         libraries: ["places"],
     });
+
+    const [selectedCar, setSelectedCar] = useState(null);
+    const [infoWindowOpen, setInfoWindowOpen] = useState(false);
+
+    const onCarClick = (car: {numberPlate: number, location: {lat: number, lng: number}, powerPercent: number}) => {
+        setSelectedCar(car);
+        setInfoWindowOpen(true);
+        setMapCenter(car.location); 
+    };
 
     if (loadError) {
         return (
@@ -22,36 +32,48 @@ const CarMap = ({ cars }: CarMapProps) => {
             <p>Error loading Google maps</p>
           </div>
         );
-      } else if (!isLoaded) {
+    } else if (!isLoaded) {
         return (
-          <div>
+          <div className="w-[calc(100vw-7rem)] h-[100vh] flex justify-center items-center">
             <p>Loading Google maps...</p>
           </div>
         );
-      } else {
-          return (
-              <div className="w-full h-full">
-                  <GoogleMap
-                  center={center}
-                  zoom={5}
-                  mapContainerStyle={{
-                      height: "100%",
-                      width: "100%",
-                  }}
-                  options={{
-                      fullscreenControl: false,
-                      zoomControl: false,
-                      streetViewControl: false,
-                  }}
-                  >
-                    {cars &&
-                        cars.map((car) => (
-                            <Marker 
-                            position={car.location}
-                            />
-                        ))}
-                  </GoogleMap>
-              </div>
+    } else {
+        return (
+            <div className="w-full h-full">
+                <GoogleMap
+                center={mapCenter}
+                zoom={5}
+                mapContainerStyle={{
+                    height: "100%",
+                    width: "100%",
+                }}
+                options={{
+                    fullscreenControl: false,
+                    zoomControl: false,
+                    streetViewControl: false,
+                }}
+                >
+                {cars &&
+                    cars.map((car) => (
+                        <Marker 
+                        position={car.location}
+                        onClick={() => onCarClick(car)}
+                        />))
+                }
+                {infoWindowOpen && selectedCar && (
+                    <InfoWindow
+                    position={selectedCar.location}
+                    onCloseClick={() => setInfoWindowOpen(false)}
+                    >
+                    <div>
+                        <h3>Number Plate: {selectedCar.numberPlate}</h3>
+                        <p>Power: {selectedCar.powerPercent}%</p>
+                    </div>
+                    </InfoWindow>
+                )}
+                </GoogleMap>
+            </div>
           );
       }
 };
