@@ -25,9 +25,11 @@ const IndexPage = () => {
   };
 
   return (
-    <div className='w-[calc(100vw-8.4rem)]'>
-      <button className='bg-green-700 p-2' onClick={addCar}>New Car</button>
-      <CarList cars={cars}/>
+    <div className='w-[calc(100vw-8rem)]'>
+      <div>
+        <button className='bg-green-700 p-2' onClick={addCar}>New Car</button>
+        <CarList cars={cars}/>
+      </div>
     </div>
   )
 }

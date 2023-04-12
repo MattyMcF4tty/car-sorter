@@ -5,7 +5,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <div className="flex flex-row w-">
       <Navbar></Navbar>
-      <div className="ml-[7rem]">
+      <div className="ml-[8rem]">
         <Component {...pageProps} />
       </div>
     </div>

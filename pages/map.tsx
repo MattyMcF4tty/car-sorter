@@ -12,7 +12,7 @@ const MapPage = () => {
       }, [])
 
     return (
-        <div className="w-[calc(100vw-7rem)] h-[100vh]">
+        <div className="w-[calc(100vw-8rem)] h-[100vh]">
             <CarMap cars={cars}/>
         </div>
     )
