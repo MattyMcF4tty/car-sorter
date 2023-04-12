@@ -1,7 +1,15 @@
-import '../styles/global.css';
+import "../styles/global.css";
+import Navbar from "../components/navbar";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <div className="flex flex-row w-">
+      <Navbar></Navbar>
+      <div className="ml-[7rem]">
+        <Component {...pageProps} />
+      </div>
+    </div>
+  );
 }
 
 export default MyApp;
