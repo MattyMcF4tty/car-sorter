@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CarList from "../components/car_list";
+import batterySearch from "../logic/search_logic";
 
 const IndexPage = () => {
   const [cars, setCars] = useState<
@@ -9,13 +10,27 @@ const IndexPage = () => {
       powerPercent: number;
     }[]
   >([]);
+  const [filteredCars, setFilteredCars] = useState<
+    {
+      numberPlate: number;
+      location: { lat: number; lng: number };
+      powerPercent: number;
+    }[]
+  >([]);
+  const [searchValue, setSearchValue] = useState<number>();
 
   useEffect(() => {
     const storedCars = sessionStorage.getItem("cars");
     if (storedCars != null || storedCars != undefined) {
       setCars(JSON.parse(sessionStorage.getItem("cars")));
     }
+    setFilteredCars(cars);
   }, []);
+
+  useEffect(() => {
+    const filteredList = batterySearch({ searchTerm: searchValue, cars });
+    setFilteredCars(filteredList);
+  }, [searchValue, cars]);
 
   const addCar = () => {
     const newCar = {
