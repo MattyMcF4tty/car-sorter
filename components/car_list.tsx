@@ -11,10 +11,10 @@ interface CarItemProps {
 const CarItem = ({ numberplate, location, powerPercent }: CarItemProps) => {
 
   return (
-    <tr className='even:bg-slate-200'>
-      <td>{ numberplate }</td>
-      <td>{ location.lat }, { location.lng }</td>
-      <td>{ powerPercent }</td>
+    <tr className='even:bg-slate-200 text-center'>
+      <td className='w-1/3'>{ numberplate }</td>
+      <td className='w-1/3'>{ location.lat }, { location.lng }</td>
+      <td className='w-1/3'>{ powerPercent }</td>
     </tr>
   )
 }
@@ -30,15 +30,15 @@ interface CarListProps {
 const CarList = ({ cars }: CarListProps) => {
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th className='font-semibold'>Numberplate</th>
-          <th className='font-semibold mx-4'>Location</th>
-          <th className='font-semibold'>Battery Percentage</th>
+    <table className='w-full'>
+      <thead className='w-full'>
+        <tr className='justify-evenly'>
+          <th className='w-1/3 font-semibold'>Numberplate</th>
+          <th className='w-1/3 font-semibold'>Location</th>
+          <th className='w-1/3 font-semibold'>Battery Percentage</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className='w-full'>
         {cars && cars.map((car) => (
           <CarItem
             key={car.numberPlate}
