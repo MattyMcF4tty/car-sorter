@@ -1,5 +1,4 @@
-import * as React from "react";
-import { User } from "../interfaces";
+import react, {useState} from "react";
 
 interface CarItemProps {
   numberplate: number;
@@ -8,8 +7,13 @@ interface CarItemProps {
 }
 
 const CarItem = ({ numberplate, location, powerPercent }: CarItemProps) => {
+  const [showSettings, setShowSettings] = useState<boolean>(false);
+
   return (
-    <tr className="even:bg-MainGreen-100 odd:bg-white text-center">
+    <tr className="even:bg-MainGreen-100 odd:bg-white text-center h-10" 
+    onMouseOver={() => setShowSettings(true)}
+    onMouseLeave={() => setShowSettings(false)}
+    >
       <td className="w-1/3">{numberplate}</td>
       <td className="w-1/3">
         {location.lat}, {location.lng}
