@@ -17,8 +17,7 @@ const IndexPage = () => {
       powerPercent: number;
     }[]
   >([]);
-  const [showFilterSettings, setShowFilterSettings] = useState<boolean>(false);
-
+ 
   useEffect(() => {
     const storedCars = sessionStorage.getItem("cars");
     if (storedCars != null || storedCars != undefined) {
@@ -32,10 +31,10 @@ const IndexPage = () => {
     const newCar = {
       numberPlate: Math.floor(Math.random() * 100000),
       location: {
-        lat: Math.random() * (57.75121 - 54.559132) + 54.559132,
-        lng: Math.random() * (15.158834 - 8.07561) + 8.07561,
+        lat: Math.random() * (55.693717 - 55.647501) + 55.647501,
+        lng: Math.random() * (12.475546 - 12.584992) + 12.584992,
       },
-      powerPercent: Math.floor(Math.random() * 101),
+      powerPercent: Math.floor(Math.random() * 100),
     };
     setCars((prevCars) => [...prevCars, newCar]);
     setFilteredCars(cars);

@@ -17,11 +17,11 @@ export const BatterySearch = ({ cars, setFilteredCars}: BatterySearchProps) => {
     const [sliderValue, setSliderValue] = useState<number>(0);
 
     useEffect(() => {
-        if (isNaN(sliderValue) || sliderValue === null) {
+        if (sliderValue === null) {
             setFilteredCars(cars);
           } else {
             const filteredList = cars.filter((car) => car.powerPercent >= sliderValue);
-            filteredList.sort((cars1, cars2) => cars2.powerPercent - cars1.powerPercent);
+            filteredList.sort((a, b) => b.powerPercent - a.powerPercent);
             setFilteredCars(filteredList);
         }
     }, [sliderValue]);
