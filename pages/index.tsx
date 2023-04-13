@@ -1,19 +1,32 @@
-import { useEffect, useState } from 'react';
-import CarList from '../components/car_list'
-import { BatterySearch } from '../components/search_fields';
+import { useEffect, useState } from "react";
+import CarList from "../components/car_list";
+import { BatterySearch } from "../components/search_fields";
 
 const IndexPage = () => {
-  const [cars, setCars] = useState<{ numberPlate: number; location: { lat: number; lng: number }; powerPercent: number }[]>([]);
-  const [filteredCars, setFilteredCars] = useState<{ numberPlate: number; location: { lat: number; lng: number }; powerPercent: number }[]>([]);
+  const [cars, setCars] = useState<
+    {
+      numberPlate: number;
+      location: { lat: number; lng: number };
+      powerPercent: number;
+    }[]
+  >([]);
+  const [filteredCars, setFilteredCars] = useState<
+    {
+      numberPlate: number;
+      location: { lat: number; lng: number };
+      powerPercent: number;
+    }[]
+  >([]);
+  const [showFilterSettings, setShowFilterSettings] = useState<boolean>(false);
 
   useEffect(() => {
     const storedCars = sessionStorage.getItem("cars");
     if (storedCars != null || storedCars != undefined) {
-      const storedCars = JSON.parse(sessionStorage.getItem("cars"))
-      setCars(storedCars)
-      setFilteredCars(storedCars)
+      const storedCars = JSON.parse(sessionStorage.getItem("cars"));
+      setCars(storedCars);
+      setFilteredCars(storedCars);
     }
-  }, [])
+  }, []);
 
   const addCar = () => {
     const newCar = {
@@ -25,19 +38,32 @@ const IndexPage = () => {
       powerPercent: Math.floor(Math.random() * 100),
     };
     setCars((prevCars) => [...prevCars, newCar]);
-    setFilteredCars(cars)
+    setFilteredCars(cars);
     sessionStorage.setItem("cars", JSON.stringify(cars));
   };
 
   return (
-    <div className='w-[calc(100vw-8rem)]'>
-      <div>
-        <BatterySearch
-        cars={cars}
-        setFilteredCars={setFilteredCars}
-        />
-        <button className='bg-green-700 p-2' onClick={addCar}>New Car</button>
-        <CarList cars={filteredCars}/>
+    <div className="w-[calc(100vw-9.2rem)] p-10 ">
+      <div className="flex flex-col items-left mb-6">
+        <div className="relative z-20">
+          <div className="relative group inline-block">
+            <button className="font-semibold shadow-md bg-MainGreen-300 p-2 rounded-md hover:bg-MainGreen-200">
+              Menu
+            </button>
+            <div className="hidden p-2 bg-white group-hover:block absolute top-full left-0 overflow-auto max-h-[calc(100vh-8rem)]">
+              <BatterySearch cars={cars} setFilteredCars={setFilteredCars} />
+              <button
+                className="font-semibold shadow-md bg-MainGreen-300 p-2 rounded-md hover:bg-MainGreen-200"
+                onClick={addCar}
+              >
+                New Car
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="shadow-lg rounded-md bg-MainGreen-300">
+        <CarList cars={filteredCars} />
       </div>
     </div>
   );
