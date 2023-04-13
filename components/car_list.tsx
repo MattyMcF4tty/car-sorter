@@ -9,12 +9,12 @@ interface CarItemProps {
 
 const CarItem = ({ numberplate, location, powerPercent }: CarItemProps) => {
   return (
-    <tr className="even:bg-slate-200 odd:bg-white text-center">
+    <tr className="even:bg-MainGreen-100 odd:bg-white text-center">
       <td className="w-1/3">{numberplate}</td>
       <td className="w-1/3">
         {location.lat}, {location.lng}
       </td>
-      <td className="w-1/3">{powerPercent}</td>
+      <td className="w-1/3">{powerPercent}%</td>
     </tr>
   );
 };

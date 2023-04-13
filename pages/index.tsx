@@ -35,7 +35,7 @@ const IndexPage = () => {
         lat: Math.random() * (57.75121 - 54.559132) + 54.559132,
         lng: Math.random() * (15.158834 - 8.07561) + 8.07561,
       },
-      powerPercent: Math.floor(Math.random() * 100),
+      powerPercent: Math.floor(Math.random() * 101),
     };
     setCars((prevCars) => [...prevCars, newCar]);
     setFilteredCars(cars);
@@ -50,7 +50,7 @@ const IndexPage = () => {
             <button className="font-semibold shadow-md bg-MainGreen-300 p-2 rounded-md hover:bg-MainGreen-200">
               Menu
             </button>
-            <div className="hidden p-2 bg-white group-hover:block absolute top-full left-0 overflow-auto max-h-[calc(100vh-8rem)]">
+            <div className=" shadow-lg rounded-md hidden p-2 bg-white group-hover:block absolute top-full left-0 overflow-auto max-h-[calc(100vh-8rem)]">
               <BatterySearch cars={cars} setFilteredCars={setFilteredCars} />
               <button
                 className="font-semibold shadow-md bg-MainGreen-300 p-2 rounded-md hover:bg-MainGreen-200"
